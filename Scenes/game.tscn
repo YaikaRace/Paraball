@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://btuvw17nx8meu"]
+
+[ext_resource type="PackedScene" uid="uid://swap57bfev4y" path="res://Scenes/player.tscn" id="1_o1o44"]
+[ext_resource type="PackedScene" uid="uid://cn2i7lhnwvc62" path="res://Scenes/camera.tscn" id="2_px6hp"]
+[ext_resource type="TileSet" uid="uid://cd8achux6arar" path="res://Resources/TileSets/Main.tres" id="3_0hegv"]
+[ext_resource type="Shader" path="res://Shaders/Drop_shadow.gdshader" id="4_a5dsw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6xvwu"]
+shader = ExtResource("4_a5dsw")
+shader_parameter/background_color = Color(0.701961, 0.701961, 0.701961, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 0.392157)
+shader_parameter/offset_in_pixels = Vector2(6, 6)
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_o1o44")]
+position = Vector2(1064, 640)
+
+[node name="Camera" parent="." instance=ExtResource("2_px6hp")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_0hegv")
+cell_quadrant_size = 70
+format = 2
+layer_0/tile_data = PackedInt32Array(1835028, 2, 0, 1835031, 2, 0, 1900561, 2, 0, 1900562, 2, 0, 1900563, 2, 0, 1900564, 2, 0, 1769493, 2, 0, 1835029, 2, 0, 1900565, 2, 0, 1245206, 2, 0, 1310742, 2, 0, 1376278, 2, 0, 1703958, 2, 0, 1769494, 2, 0, 1835030, 2, 0, 1900566, 2, 0, 1179671, 2, 0, 1376279, 1, 131072, 1441815, 2, 0, 1638423, 1, 65536, 1703959, 2, 0, 1769495, 2, 0, 1900567, 2, 0, 1179672, 2, 0, 1179673, 2, 0, 1179674, 2, 0, 1441818, 2, 0, 1638426, 1, 65536, 1703962, 2, 0, 1769498, 2, 0, 1835034, 2, 0, 1900570, 2, 0, 1245211, 2, 0, 1310747, 2, 0, 1376283, 2, 0, 1703963, 2, 0, 1769499, 2, 0, 1835035, 2, 0, 1900571, 2, 0, 1769500, 2, 0, 1835036, 2, 0, 1900572, 2, 0, 1835037, 2, 0, 1900573, 2, 0, 1900574, 2, 0, 1900575, 2, 0)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6xvwu")
+offset_right = 1920.0
+offset_bottom = 1080.0

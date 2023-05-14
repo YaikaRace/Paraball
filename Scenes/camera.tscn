@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn2i7lhnwvc62"]
+
+[ext_resource type="Script" path="res://Scenes/camera.gd" id="1_2f8ob"]
+[ext_resource type="Script" path="res://addons/shaker/shaker.gd" id="2_g8q38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tdega"]
+size = Vector2(1920, 260)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eh3xx"]
+size = Vector2(256, 1600)
+
+[sub_resource type="Curve" id="Curve_c0n20"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Camera" type="Camera2D"]
+position = Vector2(960, 540)
+script = ExtResource("1_2f8ob")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["danger"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -668)
+shape = SubResource("RectangleShape2D_tdega")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." groups=["danger"]]
+position = Vector2(0, 1340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0, -670)
+shape = SubResource("RectangleShape2D_tdega")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="." groups=["danger"]]
+position = Vector2(0, 1340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+position = Vector2(-1088, -1336)
+shape = SubResource("RectangleShape2D_eh3xx")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="." groups=["danger"]]
+position = Vector2(2176, 1340)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+position = Vector2(-1088, -1336)
+shape = SubResource("RectangleShape2D_eh3xx")
+
+[node name="Shaker" type="Node" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("2_g8q38")
+target_node = NodePath("..")
+target_property = &"offset"
+min_value = -5.0
+max_value = 5.0
+duration = 0.3
+fall_off = SubResource("Curve_c0n20")

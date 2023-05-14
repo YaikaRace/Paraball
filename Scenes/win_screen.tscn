@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=3 uid="uid://gqw7dufj3ov1"]
+
+[ext_resource type="Theme" uid="uid://cicb48pw2aaym" path="res://Themes/Default_ui.tres" id="1_4lerw"]
+[ext_resource type="Script" path="res://Scripts/win_screen.gd" id="2_86lqm"]
+[ext_resource type="AudioStream" uid="uid://48p4vtna65o1" path="res://Resources/sounds/success.wav" id="3_yk22m"]
+
+[node name="Win_screen" type="CanvasLayer"]
+process_mode = 3
+process_priority = 100
+visible = false
+script = ExtResource("2_86lqm")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4lerw")
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.282353)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 56.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/CenterContainer"]
+layout_mode = 2
+
+[node name="Rank" type="RichTextLabel" parent="Control/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]Rank: [color=red]F"
+fit_content = true
+
+[node name="Next" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Next level"
+
+[node name="Restart" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Restart"
+
+[node name="Main" type="Button" parent="Control/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Main menu"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_yk22m")
+bus = &"Success"
+
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/Next" to="." method="_on_next_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="Control/CenterContainer/VBoxContainer/Main" to="." method="_on_main_pressed"]

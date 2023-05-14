@@ -1,0 +1,70 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgw1onxonmyb7"]
+
+[ext_resource type="Script" path="res://Scripts/trampoline.gd" id="1_jqj2p"]
+[ext_resource type="Texture2D" uid="uid://b2hmanjbd7imb" path="res://Resources/images/trampoline.png" id="2_v225c"]
+[ext_resource type="AudioStream" uid="uid://c5e2n42jyfi7d" path="res://Resources/sounds/trampoline.wav" id="3_nv5tr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dt430"]
+size = Vector2(50, 50)
+
+[sub_resource type="Animation" id="Animation_mluls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_58a8n"]
+resource_name = "jump"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.5), Vector2(1, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y4i3o"]
+_data = {
+"RESET": SubResource("Animation_mluls"),
+"jump": SubResource("Animation_58a8n")
+}
+
+[node name="Trampoline" type="Area2D"]
+script = ExtResource("1_jqj2p")
+direction = Vector2(0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+rotation = 3.14159
+texture = ExtResource("2_v225c")
+offset = Vector2(0, -32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dt430")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_y4i3o")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nv5tr")
+volume_db = -5.0
+bus = &"Trampoline"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://qqg0ot1jhshe"]
+
+[ext_resource type="Texture2D" uid="uid://cy3o3sn0rsuie" path="res://Resources/images/triangulo blanco.png" id="1_get60"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60xi8"]
+size = Vector2(16, 16)
+
+[node name="Spike" type="StaticBody2D" groups=["danger"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_get60")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_60xi8")

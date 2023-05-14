@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://6as372xfry4e"]
+
+[ext_resource type="Texture2D" uid="uid://cfd802c5vxirq" path="res://Resources/images/rotate.png" id="1_clcvm"]
+[ext_resource type="Script" path="res://Scripts/rotate.gd" id="1_kn1dr"]
+[ext_resource type="AudioStream" uid="uid://fht0t7fjda4" path="res://Resources/sounds/blow.wav" id="3_khnok"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g04o7"]
+size = Vector2(50, 50)
+
+[sub_resource type="Animation" id="Animation_6swtp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_22x4x"]
+resource_name = "rotate"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -6.45772, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jadim"]
+_data = {
+"RESET": SubResource("Animation_6swtp"),
+"rotate": SubResource("Animation_22x4x")
+}
+
+[node name="rotate_l" type="Area2D"]
+script = ExtResource("1_kn1dr")
+player_rotation = -90.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_clcvm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g04o7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jadim")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_khnok")
+bus = &"Blow"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

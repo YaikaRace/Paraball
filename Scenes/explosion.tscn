@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://denxv3wsaasw7"]
+
+[ext_resource type="Texture2D" uid="uid://bymlsdvvqx6jy" path="res://Resources/images/white-circle.png" id="1_xvnxe"]
+
+[sub_resource type="Curve" id="Curve_tp0j2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_s7eyp"]
+curve = SubResource("Curve_tp0j2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0sib1"]
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 70.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.01
+scale_max = 0.01
+scale_curve = SubResource("CurveTexture_s7eyp")
+
+[node name="Explosion" type="GPUParticles2D"]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_0sib1")
+texture = ExtResource("1_xvnxe")
+lifetime = 3.0
+speed_scale = 3.0
+explosiveness = 0.9

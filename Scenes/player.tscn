@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://swap57bfev4y"]
+
+[ext_resource type="Script" path="res://Scripts/circle2d.gd" id="1_adi08"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_jvuhg"]
+[ext_resource type="Texture2D" uid="uid://bymlsdvvqx6jy" path="res://Resources/images/white-circle.png" id="2_wy2ln"]
+[ext_resource type="AudioStream" uid="uid://bcxoerl033cax" path="res://Resources/sounds/Boomerang.wav" id="4_y3v8t"]
+[ext_resource type="AudioStream" uid="uid://bjhb4dl62xdwk" path="res://Resources/sounds/explosion.wav" id="5_bdaiv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jbkd0"]
+friction = 0.0
+
+[sub_resource type="Gradient" id="Gradient_jqn0t"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f7x1t"]
+gradient = SubResource("Gradient_jqn0t")
+
+[sub_resource type="Curve" id="Curve_06j4a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_trjuo"]
+curve = SubResource("Curve_06j4a")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m3tn4"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.04
+scale_max = 0.04
+scale_curve = SubResource("CurveTexture_trjuo")
+color_ramp = SubResource("GradientTexture1D_f7x1t")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cocgu"]
+radius = 20.0
+
+[node name="Player" type="RigidBody2D" groups=["player"]]
+physics_material_override = SubResource("PhysicsMaterial_jbkd0")
+max_contacts_reported = 1
+contact_monitor = true
+freeze = true
+angular_damp = -1.0
+script = ExtResource("1_jvuhg")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_m3tn4")
+texture = ExtResource("2_wy2ln")
+lifetime = 0.2
+
+[node name="Line2D" type="Line2D" parent="."]
+z_index = 3
+scale = Vector2(-1, -1)
+points = PackedVector2Array(0, 0, 80, 0)
+width = 3.0
+default_color = Color(0.435294, 0.780392, 0.682353, 1)
+
+[node name="Circle2D" type="Polygon2D" parent="."]
+antialiased = true
+polygon = PackedVector2Array(20, 0, 19.563, 4.15823, 18.2709, 8.13473, 16.1803, 11.7557, 13.3826, 14.8629, 10, 17.3205, 6.18034, 19.0211, 2.09057, 19.8904, -2.09057, 19.8904, -6.18034, 19.0211, -10, 17.3205, -13.3826, 14.8629, -16.1803, 11.7557, -18.2709, 8.13473, -19.563, 4.15823, -20, -1.43051e-06, -19.563, -4.15824, -18.2709, -8.13474, -16.1803, -11.7557, -13.3826, -14.8629, -10, -17.3205, -6.18034, -19.0211, -2.09057, -19.8904, 2.09057, -19.8904, 6.18034, -19.0211, 10, -17.3205, 13.3826, -14.8629, 16.1803, -11.7557, 18.2709, -8.13473, 19.563, -4.15823)
+script = ExtResource("1_adi08")
+radius = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cocgu")
+
+[node name="Circle2D2" type="Polygon2D" parent="."]
+position = Vector2(-16, 0)
+color = Color(0.309804, 0.309804, 0.309804, 1)
+antialiased = true
+polygon = PackedVector2Array(5, 0, 4.56773, 2.03368, 3.34565, 3.71572, 1.54508, 4.75528, -0.522642, 4.97261, -2.5, 4.33013, -4.04508, 2.93893, -4.89074, 1.03956, -4.89074, -1.03956, -4.04508, -2.93893, -2.5, -4.33013, -0.522641, -4.97261, 1.54509, -4.75528, 3.34565, -3.71572, 4.56773, -2.03368)
+script = ExtResource("1_adi08")
+radius = 5.0
+num_sides = 15
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="restart_timer" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="cooldown" type="Timer" parent="Timers"]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="Sfx" type="Node" parent="."]
+
+[node name="boomerang" type="AudioStreamPlayer" parent="Sfx"]
+unique_name_in_owner = true
+stream = ExtResource("4_y3v8t")
+pitch_scale = 4.0
+
+[node name="explosion" type="AudioStreamPlayer" parent="Sfx"]
+unique_name_in_owner = true
+stream = ExtResource("5_bdaiv")
+volume_db = -10.0
+pitch_scale = 1.2
+bus = &"Explosion"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timers/restart_timer" to="." method="_on_restart_timer_timeout"]

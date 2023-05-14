@@ -1,0 +1,171 @@
+[gd_scene load_steps=5 format=3 uid="uid://qptj5445aatx"]
+
+[ext_resource type="Theme" uid="uid://cicb48pw2aaym" path="res://Themes/Default_ui.tres" id="1_4wndb"]
+[ext_resource type="Script" path="res://Scripts/config.gd" id="2_fy5fr"]
+[ext_resource type="Shortcut" uid="uid://dtbqjvofclf7" path="res://Resources/shortcuts/ui_cancel.tres" id="3_2220k"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_v25jb"]
+thickness = 3
+
+[node name="Config" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4wndb")
+script = ExtResource("2_fy5fr")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Separator" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/Separator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Separator/CenterContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer/Separator/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_v25jb")
+
+[node name="Video" type="Label" parent="CenterContainer/VBoxContainer/Separator/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Video"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/VBoxContainer/Separator/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_v25jb")
+
+[node name="Mode" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Screen mode"
+
+[node name="mode_opt" type="OptionButton" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+
+[node name="Resolution" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Windowed Resolution"
+
+[node name="res_opt" type="OptionButton" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+item_count = 7
+selected = 0
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1366x768"
+popup/item_1/id = 1
+popup/item_2/text = "1280x720"
+popup/item_2/id = 2
+popup/item_3/text = "960x540"
+popup/item_3/id = 3
+popup/item_4/text = "854x480"
+popup/item_4/id = 4
+popup/item_5/text = "640x360"
+popup/item_5/id = 5
+popup/item_6/text = "426x240"
+popup/item_6/id = 6
+
+[node name="Separator2" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer/Separator2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer/Separator2/CenterContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/VBoxContainer/Separator2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_v25jb")
+
+[node name="Volume" type="Label" parent="CenterContainer/VBoxContainer/Separator2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/VBoxContainer/Separator2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_v25jb")
+
+[node name="Master" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Master"
+
+[node name="master_sl" type="HSlider" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Music" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music"
+
+[node name="music_sl" type="HSlider" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="SFX" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "SFX"
+
+[node name="sfx_sl" type="HSlider" parent="CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.1
+value = 1.0
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 992.0
+offset_right = 145.0
+offset_bottom = 1042.0
+shortcut = ExtResource("3_2220k")
+text = "Back"
+
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/mode_opt" to="." method="_on_mode_opt_item_selected"]
+[connection signal="item_selected" from="CenterContainer/VBoxContainer/res_opt" to="." method="_on_res_opt_item_selected"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/master_sl" to="." method="_on_master_sl_value_changed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/music_sl" to="." method="_on_music_sl_value_changed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/sfx_sl" to="." method="_on_sfx_sl_value_changed"]
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

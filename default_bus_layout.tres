@@ -1,0 +1,83 @@
+[gd_resource type="AudioBusLayout" load_steps=6 format=3 uid="uid://c4vgstksrkv1y"]
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_bn3e3"]
+resource_name = "Reverb"
+room_size = 0.4
+damping = 0.3
+spread = 0.4
+hipass = 1.0
+dry = 0.0
+wet = 0.3
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_87mmh"]
+resource_name = "PitchShift"
+pitch_scale = 0.25
+
+[sub_resource type="AudioEffectCompressor" id="AudioEffectCompressor_51o6g"]
+resource_name = "Compressor"
+threshold = -8.0
+gain = 10.0
+mix = 0.5
+
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_6dicf"]
+resource_name = "Delay"
+
+[sub_resource type="AudioEffectFilter" id="AudioEffectFilter_idp3d"]
+resource_name = "Filter"
+cutoff_hz = 20500.0
+resonance = 1.0
+gain = 4.0
+
+[resource]
+bus/1/name = &"Music"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/2/name = &"SFX"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/3/name = &"Blow"
+bus/3/solo = false
+bus/3/mute = false
+bus/3/bypass_fx = false
+bus/3/volume_db = 0.0
+bus/3/send = &"SFX"
+bus/3/effect/0/effect = SubResource("AudioEffectReverb_bn3e3")
+bus/3/effect/0/enabled = true
+bus/4/name = &"Trampoline"
+bus/4/solo = false
+bus/4/mute = false
+bus/4/bypass_fx = false
+bus/4/volume_db = 0.0
+bus/4/send = &"SFX"
+bus/5/name = &"boomerang"
+bus/5/solo = false
+bus/5/mute = false
+bus/5/bypass_fx = false
+bus/5/volume_db = 0.0
+bus/5/send = &"SFX"
+bus/5/effect/0/effect = SubResource("AudioEffectPitchShift_87mmh")
+bus/5/effect/0/enabled = true
+bus/6/name = &"Explosion"
+bus/6/solo = false
+bus/6/mute = false
+bus/6/bypass_fx = false
+bus/6/volume_db = 0.0
+bus/6/send = &"SFX"
+bus/6/effect/0/effect = SubResource("AudioEffectCompressor_51o6g")
+bus/6/effect/0/enabled = true
+bus/6/effect/1/effect = SubResource("AudioEffectDelay_6dicf")
+bus/6/effect/1/enabled = true
+bus/6/effect/2/effect = SubResource("AudioEffectFilter_idp3d")
+bus/6/effect/2/enabled = true
+bus/7/name = &"Success"
+bus/7/solo = false
+bus/7/mute = false
+bus/7/bypass_fx = false
+bus/7/volume_db = 0.0
+bus/7/send = &"SFX"

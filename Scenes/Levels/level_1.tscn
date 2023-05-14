@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://irjor2bsfxpf"]
+
+[ext_resource type="PackedScene" uid="uid://swap57bfev4y" path="res://Scenes/player.tscn" id="1_ywmlt"]
+[ext_resource type="PackedScene" uid="uid://cn2i7lhnwvc62" path="res://Scenes/camera.tscn" id="2_3brmv"]
+[ext_resource type="TileSet" uid="uid://dky44tm00swgd" path="res://Resources/TileSets/Main.tres" id="3_s3mx0"]
+[ext_resource type="Shader" path="res://Shaders/Drop_shadow.gdshader" id="4_lm4cp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ph3pi"]
+shader = ExtResource("4_lm4cp")
+shader_parameter/background_color = Color(0.701961, 0.701961, 0.701961, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 0.392157)
+shader_parameter/offset_in_pixels = Vector2(6, 6)
+
+[node name="level1" type="Node2D"]
+metadata/min = 2
+metadata/mid = 5
+metadata/max = 10
+metadata/level = 1
+
+[node name="Player" parent="." instance=ExtResource("1_ywmlt")]
+position = Vector2(600, 656)
+line_rotation = 180.0
+
+[node name="Camera" parent="." instance=ExtResource("2_3brmv")]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("3_s3mx0")
+cell_quadrant_size = 30
+format = 2
+layer_0/tile_data = PackedInt32Array(458783, 2, 0, 524319, 2, 0, 589855, 2, 0, 917535, 1, 131072, 983071, 1, 131072, 1048607, 2, 0, 1114143, 2, 0, 1179679, 2, 0, 458784, 2, 0, 524320, 2, 0, 589856, 2, 0, 1048608, 2, 0, 1114144, 2, 0, 1179680, 2, 0, 458785, 2, 0, 524321, 2, 0, 589857, 2, 0, 458786, 2, 0, 524322, 2, 0, 589858, 2, 0, 458787, 2, 0, 524323, 2, 0, 589859, 2, 0, 458788, 2, 0, 524324, 2, 0, 589860, 2, 0, 458789, 2, 0, 524325, 2, 0, 589861, 2, 0, 458790, 2, 0, 524326, 2, 0, 589862, 2, 0, 458791, 2, 0, 524327, 2, 0, 589863, 2, 0, 458792, 2, 0, 524328, 2, 0, 589864, 2, 0, 458779, 2, 0, 524315, 2, 0, 589851, 2, 0, 655387, 2, 0, 720923, 2, 0, 786459, 2, 0, 851995, 2, 0, 917531, 2, 0, 983067, 2, 0, 1048603, 2, 0, 1114139, 2, 0, 1179675, 2, 0, 458780, 2, 0, 524316, 2, 0, 589852, 2, 0, 655388, 2, 0, 720924, 2, 0, 786460, 2, 0, 851996, 2, 0, 917532, 2, 0, 983068, 2, 0, 1048604, 2, 0, 1114140, 2, 0, 1179676, 2, 0, 458781, 2, 0, 524317, 2, 0, 589853, 2, 0, 655389, 2, 0, 720925, 2, 0, 786461, 2, 0, 851997, 2, 0, 917533, 2, 0, 983069, 2, 0, 1048605, 2, 0, 1114141, 2, 0, 1179677, 2, 0, 458782, 2, 0, 524318, 2, 0, 589854, 2, 0, 917534, 1, 131072, 983070, 1, 131072, 1048606, 2, 0, 1114142, 2, 0, 1179678, 2, 0, 655398, 2, 0, 720934, 2, 0, 786470, 2, 0, 852006, 2, 0, 917542, 2, 0, 983078, 2, 0, 1048614, 2, 0, 1114150, 2, 0, 1179686, 2, 0, 655399, 2, 0, 720935, 2, 0, 786471, 2, 0, 852007, 2, 0, 917543, 2, 0, 983079, 2, 0, 1048615, 2, 0, 1114151, 2, 0, 1179687, 2, 0, 655400, 2, 0, 720936, 2, 0, 786472, 2, 0, 852008, 2, 0, 917544, 2, 0, 983080, 2, 0, 1048616, 2, 0, 1114152, 2, 0, 1179688, 2, 0)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_ph3pi")
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[connection signal="body_entered" from="TileMap/@Goal@28319" to="TileMap/@Goal@28319" method="_on_body_entered" flags=18]
+[connection signal="body_entered" from="TileMap/@Goal@28320" to="TileMap/@Goal@28320" method="_on_body_entered" flags=18]
+[connection signal="body_entered" from="TileMap/@Goal@28321" to="TileMap/@Goal@28321" method="_on_body_entered" flags=18]
+[connection signal="body_entered" from="TileMap/@Goal@28322" to="TileMap/@Goal@28322" method="_on_body_entered" flags=18]
